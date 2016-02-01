@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<alloy>
+
+<view nodetheme="Martha">
+
+<defaultnode/>
+
+<defaultedge/>
+
+<node>
+   <type name="Int"/>
+   <type name="String"/>
+   <type name="univ"/>
+   <type name="seq/Int"/>
+</node>
+
+<node shape="Ellipse" color="Yellow">
+   <type name="List"/>
+</node>
+
+<node shape="Parallelogram" color="Green">
+   <type name="Node"/>
+</node>
+
+<node style="Bold" label="This">
+   <set name="$RepOk_This" type="List"/>
+</node>
+
+<edge visible="no" merge="no" layout="no" attribute="yes" constraint="no">
+   <relation name="elem"> <type name="Node"/> <type name="Int"/> </relation>
+</edge>
+
+</view>
+
+</alloy>
