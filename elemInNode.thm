@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <alloy>
 
-<view nodetheme="Martha">
+<view nodetheme="Martha" edgetheme="Martha" useOriginalAtomNames="yes" hidePrivate="no" hideMeta="no">
 
 <defaultnode/>
 
@@ -12,6 +12,7 @@
    <type name="String"/>
    <type name="univ"/>
    <type name="seq/Int"/>
+   <set name="$Count_x" type="Int"/>
 </node>
 
 <node shape="Ellipse" color="Yellow">
@@ -22,11 +23,15 @@
    <type name="Node"/>
 </node>
 
-<node style="Bold" label="This">
-   <set name="$RepOk_This" type="List"/>
+<node showinattr="yes">
+   <set name="$Count_This" type="List"/>
 </node>
 
-<edge visible="no" merge="no" layout="no" attribute="yes" constraint="no">
+<node visible="yes" hideunconnected="yes" showlabel="yes" showinattr="yes">
+   <set name="$Count_result" type="Int"/>
+</node>
+
+<edge visible="no" merge="yes" attribute="yes" constraint="yes">
    <relation name="elem"> <type name="Node"/> <type name="Int"/> </relation>
 </edge>
 
