@@ -53,5 +53,34 @@ this/Node<:left={Node$1->Node$1, Node$2->Node$0}
 this/Node<:right={Node$1->Node$1}
 skolem $Acyclic_t={BinaryTree$0}
 
-
 */
+
+
+-- 2.c Linear order
+one sig N0, N1, N2, N3 extends Node {}
+
+one sig Ordering { // model a linear order on nodes
+	first: Node, // the first node in the linear order
+	order: Node -> Node 	// for each node n, n.(Ordering.order) represents the
+											//node (if any) immediately after n in order
+}
+
+fact LinearOrder {
+	// the first node in the linear order is N0; and
+	// the four nodes are ordered as [N0, N1, N2, N3]
+
+}
+
+
+-- 2.d Non-isomorphic enumeration 
+pred SymmetryBreaking(t: BinaryTree) {
+		// if t has a root node, it is the first node according to the linear order; and
+		// a "pre-order" traversal of the nodes in t visits them according to the linear order
+}
+
+pred NonIsomorphicTrees(t: BinaryTree) {
+	Acyclic[t]
+	SymmetryBreaking[t]
+}
+run NonIsomorphicTrees // enumerates non-isomorphic binary trees with up to 4 nodes
+
