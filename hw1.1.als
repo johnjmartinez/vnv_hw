@@ -49,20 +49,19 @@ pred RepOk(This:List) { // class invariant for List
 }
 
 // scope: #List <= 1, #Node <= 3, ints = { -2, -1, 0, 1 }
---run RepOk for 1 List, 3 Node, 3 int
+--run RepOk for 1 List, 3 Node, 2 int
 
 
 -- 1.c Specifying the count method
 pred Count(This:List, x:Int, result:Int) {
 	// count correctly returns the number of occurences of <x> in <This>
 	// <result> represents the return value of count
-  result = #{ b:This.header.*link | b.elem = x } 
-
 	RepOk[This] // assume This is a valid list
+	result = #{ b:This.header.*link | b.elem = x } 
 }
 
 // scope: #List <= 1, #Node <= 3, ints = { -2, -1, 0, 1 }
-run Count for 1 List, 3 Node, 2 int
+--run Count for 1 List, 3 Node, 2 int
 
 
 -- 1.d Specifying the contains method 
@@ -71,13 +70,17 @@ one sig True, False extends Boolean {}
 pred Contains(This:List, x:Int, result:Boolean) {
 	// contains returns true if and only if <x> is in <This>
 	// <result> represents the return value of contains
- result = Boolean { some b:This.header.*link | b.elem = x } 
-
 	RepOk[This] // assume This is a valid list
+ 	--result = False { all b:This.header.*link | b.elem != x } or 
+	--result = True  { some b:This.header.*link | b.elem = x }
+	--result = Boolean #{ b:This.header.*link | b.elem = x } > 0
+    result = Boolean{ x in This.header.*link.elem } 
+
 }
 
+
 // scope: #List <= 1, #Node <= 3, ints = { -2, -1, 0, 1 }
-run Contains for 1 List, 2 Node, 3 int
+run Contains // for 1 List, 10 Node,  2 Int
 
 
 
