@@ -21,7 +21,7 @@ fact DisconnectedNodesHaveSelfLoops {
 }
 
 -- 2.b Isomorphism
-run Acyclic
+--run Acyclic
 /*
 Considering only the part of the instance reachable from the binary tree atom:
 
@@ -61,26 +61,34 @@ one sig N0, N1, N2, N3 extends Node {}
 
 one sig Ordering { // model a linear order on nodes
 	first: Node, // the first node in the linear order
-	order: Node -> Node 	// for each node n, n.(Ordering.order) represents the
-											//node (if any) immediately after n in order
+	order: Node -> Node 
+	// for each node n, n.(Ordering.order) represents the
+	// node (if any) immediately after n in order
 }
 
 fact LinearOrder {
 	// the first node in the linear order is N0; and
 	// the four nodes are ordered as [N0, N1, N2, N3]
-
+ 	
+ 	N0. (Ordering.order)  = N1 and N1 in N0.^(left + right) 
+	N1. (Ordering.order)  = N2 and N2 in N1.^(left + right)
+	N2. (Ordering.order)  = N3 and N3 in N2.^(left + right)
+	N3. (Ordering.order)  = none
 }
 
 
 -- 2.d Non-isomorphic enumeration 
 pred SymmetryBreaking(t: BinaryTree) {
-		// if t has a root node, it is the first node according to the linear order; and
-		// a "pre-order" traversal of the nodes in t visits them according to the linear order
+	// if t has a root node, it is the first node according to the linear order; and
+	// a "pre-order" traversal of the nodes in t visits them according to the linear order
+	one t:BinaryTree | (N0 = t.root and N0 = Ordering.first) or
+		no t.root
 }
 
 pred NonIsomorphicTrees(t: BinaryTree) {
 	Acyclic[t]
 	SymmetryBreaking[t]
 }
-run NonIsomorphicTrees // enumerates non-isomorphic binary trees with up to 4 nodes
+
+run NonIsomorphicTrees for 10 Node // enumerates non-isomorphic binary trees with up to 4 nodes
 
