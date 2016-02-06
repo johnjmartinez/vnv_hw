@@ -61,7 +61,7 @@ pred Count(This:List, x:Int, result:Int) {
 }
 
 // scope: #List <= 1, #Node <= 3, ints = { -2, -1, 0, 1 }
-run Count for 1 List, 3 Node, 2 int
+--run Count for 1 List, 3 Node, 2 int
 
 
 -- 1.d Specifying the contains method 
@@ -71,14 +71,15 @@ pred Contains(This:List, x:Int, result:Boolean) {
 	// contains returns true if and only if <x> is in <This>
 	// <result> represents the return value of contains
 	RepOk[This] // assume This is a valid list
- 	--result = False { all b:This.header.*link | b.elem != x } or 
-	--result = True  { some b:This.header.*link | b.elem = x }
-	--result = Boolean #{ b:This.header.*link | b.elem = x } > 0
-	result = Boolean( x in This.header.*link.elem )
+ 	//result = False { b:This.header.*link | b.elem != x } or 
+	//result = True  { b:This.header.*link | b.elem = x }
+	//result = Boolean b in This.header.*link
+ (x !in This.header.*link.elem => result = False) or
+	result = True
 
 }
 // scope: #List <= 1, #Node <= 3, ints = { -2, -1, 0, 1 }
---run Contains for 1 List, 3 Node, 2 int
+run Contains for 1 List, 3 Node, 2 int
 
 
 

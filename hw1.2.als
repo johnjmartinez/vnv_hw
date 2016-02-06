@@ -84,9 +84,9 @@ pred SymmetryBreaking(t: BinaryTree) {
 	N0 = t.root or no t.root  
 	all n: N0.*(left+right) {
 	 	one n.left and no  n.right	=> n.left  = n.(Ordering.order)
-		one n.left and one n.right	=> n.left  = n.(Ordering.order) and n.right in n.left.(Ordering.order)
+		one n.left and one n.right	=> n.left  = n.(Ordering.order) and n.right in n.left.*(Ordering.order)
 		no  n.left and one n.right 	=> n.right = n.(Ordering.order) 
-		//n.left !in n.right.*(Ordering.order)
+		//n.left in n.right.*(Ordering.order)
 	} 
 }
 
