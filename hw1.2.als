@@ -6,8 +6,8 @@ abstract sig Node {	left, right: lone Node }
 pred Acyclic(t: BinaryTree) {
 	all n: t.root.*(left + right) { // union of sets of nodes at right and left branches
 		n !in n.^(left + right)	// n not in left or right subtrees
-		no n.(left) & n.(right) // n does not point to itself (leaf has no branches)
-		lone n.~(left + right) // n has one parent node unless root
+		no n.(left) & n.(right) // n.left != n.right
+		lone n.~(left + right) // n has one parent node ONLY unless root
 	}
 }
 
@@ -69,11 +69,11 @@ one sig Ordering { // model a linear order on nodes
 fact LinearOrder {
 	// the first node in the linear order is N0; and
 	// the four nodes are ordered as [N0, N1, N2, N3]
- 	
- 	N0. (Ordering.order)  = N1 and N1 in N0.^(left + right) 
-	N1. (Ordering.order)  = N2 and N2 in N1.^(left + right)
-	N2. (Ordering.order)  = N3 and N3 in N2.^(left + right)
-	N3. (Ordering.order)  = none
+	N0 = Ordering.first
+ 	N0.(Ordering.order) = N1
+	N1.(Ordering.order) = N2
+	N2.(Ordering.order) = N3 
+	N3.(Ordering.order) = none //end ordering cycles
 }
 
 
@@ -81,8 +81,13 @@ fact LinearOrder {
 pred SymmetryBreaking(t: BinaryTree) {
 	// if t has a root node, it is the first node according to the linear order; and
 	// a "pre-order" traversal of the nodes in t visits them according to the linear order
-	one t:BinaryTree | (N0 = t.root and N0 = Ordering.first) or
-		no t.root
+	N0 = t.root or no t.root  
+	all n: N0.*(left+right) {
+	 	one n.left and no  n.right	=> n.left  = n.(Ordering.order)
+		one n.left and one n.right	=> n.left  = n.(Ordering.order) and n.right in n.left.(Ordering.order)
+		no  n.left and one n.right 	=> n.right = n.(Ordering.order) 
+		//n.left !in n.right.*(Ordering.order)
+	} 
 }
 
 pred NonIsomorphicTrees(t: BinaryTree) {
@@ -90,5 +95,5 @@ pred NonIsomorphicTrees(t: BinaryTree) {
 	SymmetryBreaking[t]
 }
 
-run NonIsomorphicTrees for 10 Node // enumerates non-isomorphic binary trees with up to 4 nodes
+run NonIsomorphicTrees for 4 Node // enumerates non-isomorphic binary trees with up to 4 nodes
 

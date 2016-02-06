@@ -40,7 +40,7 @@ pred Loop(This:List) {
 }
 pred Sorted(This:List) {
 	// <This> has elements in sorted order (?<=?)
-	all b:This.header.*link | b.elem <= b.link.elem
+	all b:This.header.*link | b.elem =< b.link.elem
 }
 
 pred RepOk(This:List) { // class invariant for List
@@ -61,7 +61,7 @@ pred Count(This:List, x:Int, result:Int) {
 }
 
 // scope: #List <= 1, #Node <= 3, ints = { -2, -1, 0, 1 }
---run Count for 1 List, 3 Node, 2 int
+run Count for 1 List, 3 Node, 2 int
 
 
 -- 1.d Specifying the contains method 
@@ -70,14 +70,15 @@ one sig True, False extends Boolean {}
 pred Contains(This:List, x:Int, result:Boolean) {
 	// contains returns true if and only if <x> is in <This>
 	// <result> represents the return value of contains
+	RepOk[This] // assume This is a valid list
  	--result = False { all b:This.header.*link | b.elem != x } or 
 	--result = True  { some b:This.header.*link | b.elem = x }
 	--result = Boolean #{ b:This.header.*link | b.elem = x } > 0
-    result = Boolean{ x in This.header.*link.elem } 
+	result = Boolean( x in This.header.*link.elem )
 
 }
-
-run Contains for 1 List, 3 Node, 2 int
+// scope: #List <= 1, #Node <= 3, ints = { -2, -1, 0, 1 }
+--run Contains for 1 List, 3 Node, 2 int
 
 
 
