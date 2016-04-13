@@ -1,0 +1,143 @@
+JavaPathfinder core system v8.0 (rev 29+
+*** failed to import extension hgext.qct: No module named qct) - (C) 2005-2014 United States Government. All rights reserved.
+
+
+====================================================== system under test
+LListTester.main("3","1")
+
+====================================================== search started: 4/12/16 9:59 PM
+@Test public void test0() {
+	LList l = new LList();
+}
+
+@Test public void test1() {
+	LList l = new LList();
+	l.addFirst(0);
+}
+
+@Test public void test2() {
+	LList l = new LList();
+	l.addLast(0);
+}
+
+@Test public void test3() {
+	LList l = new LList();
+	l.addFirst(1);
+}
+
+@Test public void test4() {
+	LList l = new LList();
+	l.addLast(1);
+}
+
+@Test public void test5() {
+	LList l = new LList();
+	l.addFirst(0);
+	l.addFirst(0);
+}
+
+@Test public void test6() {
+	LList l = new LList();
+	l.addFirst(0);
+	l.addLast(0);
+}
+
+@Test public void test7() {
+	LList l = new LList();
+	l.addFirst(0);
+	l.addFirst(1);
+}
+
+@Test public void test8() {
+	LList l = new LList();
+	l.addFirst(0);
+	l.addLast(1);
+}
+
+@Test public void test9() {
+	LList l = new LList();
+	l.addLast(0);
+	l.addFirst(0);
+}
+
+@Test public void test10() {
+	LList l = new LList();
+	l.addLast(0);
+	l.addLast(0);
+}
+
+@Test public void test11() {
+	LList l = new LList();
+	l.addLast(0);
+	l.addFirst(1);
+}
+
+@Test public void test12() {
+	LList l = new LList();
+	l.addLast(0);
+	l.addLast(1);
+}
+
+@Test public void test13() {
+	LList l = new LList();
+	l.addFirst(1);
+	l.addFirst(0);
+}
+
+@Test public void test14() {
+	LList l = new LList();
+	l.addFirst(1);
+	l.addLast(0);
+}
+
+@Test public void test15() {
+	LList l = new LList();
+	l.addFirst(1);
+	l.addFirst(1);
+}
+
+@Test public void test16() {
+	LList l = new LList();
+	l.addFirst(1);
+	l.addLast(1);
+}
+
+@Test public void test17() {
+	LList l = new LList();
+	l.addLast(1);
+	l.addFirst(0);
+}
+
+@Test public void test18() {
+	LList l = new LList();
+	l.addLast(1);
+	l.addLast(0);
+}
+
+@Test public void test19() {
+	LList l = new LList();
+	l.addLast(1);
+	l.addFirst(1);
+}
+
+@Test public void test20() {
+	LList l = new LList();
+	l.addLast(1);
+	l.addLast(1);
+}
+
+
+====================================================== results
+no errors detected
+
+====================================================== statistics
+elapsed time:       00:00:00
+states:             new=8,visited=20,backtracked=28,end=21
+search:             maxDepth=3,constraints=0
+choice generators:  thread=1 (signal=0,lock=1,sharedRef=0,threadApi=0,reschedule=0), data=7
+heap:               new=865,released=827,maxLive=379,gcCycles=26
+instructions:       5083
+max memory:         481MB
+loaded code:        classes=63,methods=1563
+
+====================================================== search finished: 4/12/16 9:59 PM
