@@ -1,21 +1,36 @@
 import gov.nasa.jpf.vm.Verify; 
 import org.junit.Test;
+import static org.junit.Assert.assertEquals;
 
 public class LListTester {
-
+/* (a)
+Write some JUnit tests such that each test makes exactly one invocation of
+addLast and running all the tests provides full statement coverage for the method
+addLast
+*/
 	@Test 
-	public void test0() {
+	public void test0() { //add to non-empty list
 		LList l = new LList();	
 		l.addFirst(1);
+        l.addLast(0);
+        assertEquals(l.toString(), "1 0");
 	}
 
 	@Test 
-	public void test1() {
+	public void test1() { //add to empty list
 		LList l = new LList();	
-		l.addLast(1);
+		l.addLast(2);
+        assertEquals(l.toString(), "2");
 	}
 
-
+/* (b)
+Implement the following main method such that running it using the JPF JVM
+generates all method sequences of length up to SEQUENCE LENGTH , where the
+first method in each sequence is a constructor call, which is followed by up
+to SEQUENCE LENGTH - 1 invocations of addFirst or addLast , and each invocation 
+of addFirst and addLast uses only integers { 0, ..., ELEM UPPER BOUND } as
+parameter values
+*/
 	public static void main(String[] a) {
 		if (a.length != 2) throw new IllegalArgumentException();
 		final int SEQUENCE_LENGTH = Integer.parseInt(a[0]);

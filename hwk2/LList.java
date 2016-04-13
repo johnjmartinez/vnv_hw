@@ -1,7 +1,6 @@
 import java.util.Set;
 import java.util.HashSet;
 
-
 public class LList {
     Node header;
 	int size;
@@ -14,19 +13,20 @@ public class LList {
 	public boolean repOk() {
 	// returns true if and only if (1) this is a loop-list and
 	// (2) size is the number of nodes in this
-        Set<Node> nodes = new HashSet<Node>();
         
         if (header == null) {
-            return ( size == 0 ? true :  false );
+            return size == 0 ;
         }
         
+        Set<Node> nodes = new HashSet<Node>();
         Node curr = header;
+        
         while (curr !=  curr.next) {
             if ( !nodes.add(curr) ) return false; //node already transversed and not loop'd to itself
             curr = curr.next;
         }
    
-        return ( size == nodes.size() ? true :  false );	
+        return size == nodes.size() ;	
     }
 
 	public void addFirst(int x) {
